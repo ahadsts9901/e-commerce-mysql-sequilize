@@ -15,6 +15,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login"
 import SplashScreen from "./pages/SplashScreen";
 import SignUp from "./pages/Signup";
+import Home from "./pages/Home";
 
 const App = () => {
 
@@ -71,7 +72,7 @@ const App = () => {
               currentUser?.isLogin == true && currentUser?.isAdmin == false && (
                 <>
                   <Routes>
-                    {/* <Route path="/" element={<Home />} /> */}
+                    <Route path="/" element={<Home />} />
                     <Route path="*" element={<Navigate to="/" replace={true} />} />
                   </Routes>
                 </>
