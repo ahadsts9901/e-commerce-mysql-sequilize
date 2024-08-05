@@ -18,6 +18,7 @@ import SignUp from "./pages/Signup";
 import Home from "./pages/Home";
 import AddProduct from "./pages/AddProduct";
 import Products from "./pages/Products";
+import SingleProduct from "./pages/SingleProduct";
 
 const App = () => {
 
@@ -74,6 +75,7 @@ const App = () => {
                 <>
                   <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/product/:productId" element={<SingleProduct />} />
                     <Route path="*" element={<Navigate to="/" replace={true} />} />
                   </Routes>
                 </>
@@ -88,6 +90,7 @@ const App = () => {
                   <Routes>
                     <Route path="/admin/add-product" element={<AddProduct />} />
                     <Route path="/admin/products" element={<Products />} />
+                    <Route path="/product/:productId" element={<SingleProduct />} />
                     <Route path="*" element={<Navigate to="/admin/add-product" replace={true} />} />
                   </Routes>
                 </>
