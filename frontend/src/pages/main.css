@@ -1,0 +1,14 @@
+.splashScreen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #364B63;
+}
