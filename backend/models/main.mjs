@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import userModel from './userModel.mjs';
+import productModel from './productModel.mjs'
 
 export const sequelize = new Sequelize(process.env.MY_SQL_DB, process.env.MY_SQL_USER, process.env.MY_SQL_PASSWORD, {
     host: 'localhost',
@@ -7,6 +8,7 @@ export const sequelize = new Sequelize(process.env.MY_SQL_DB, process.env.MY_SQL
 });
 
 export const User = userModel(sequelize);
+export const Product = productModel(sequelize);
 
 sequelize.sync()
     .then(() => {
