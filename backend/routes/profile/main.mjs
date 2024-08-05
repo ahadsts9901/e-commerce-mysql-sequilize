@@ -9,8 +9,6 @@ router.get("/profile", async (req, res, next) => {
 
     try {
 
-        console.log(req.currentUser)
-
         const { currentUser } = req
         const { id } = currentUser
 
@@ -27,6 +25,26 @@ router.get("/profile", async (req, res, next) => {
         res.send({
             message: "profile fetched",
             data: user
+        })
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({
+            message: "internal server error",
+            error: error?.message
+        })
+    }
+
+})
+
+router.post("/logout", async (req, res, next) => {
+
+    try {
+
+        res.clearCookie("hart")        
+
+        res.send({
+            message: "logout successfull",
         })
 
     } catch (error) {

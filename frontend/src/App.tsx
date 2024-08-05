@@ -16,6 +16,7 @@ import Login from "./pages/Login"
 import SplashScreen from "./pages/SplashScreen";
 import SignUp from "./pages/Signup";
 import Home from "./pages/Home";
+import AddProduct from "./pages/AddProduct";
 
 const App = () => {
 
@@ -85,7 +86,8 @@ const App = () => {
               currentUser?.isLogin == true && currentUser?.isAdmin == true && (
                 <>
                   <Routes>
-
+                    <Route path="/admin/add-product" element={<AddProduct />} />
+                    <Route path="*" element={<Navigate to="/admin/add-product" replace={true} />} />
                   </Routes>
                 </>
               )
@@ -117,7 +119,7 @@ const App = () => {
           </>
 
         </>
-      </ThemeProvider>
+      </ThemeProvider >
     </>
   )
 }
