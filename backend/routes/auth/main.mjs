@@ -1,9 +1,10 @@
+import "dotenv/config"
 import { Router } from "express"
 import { emailPattern, firstNamePattern, lastNamePattern, passwordPattern } from "../../core.mjs"
-import { User } from "../../modules/main.mjs"
-import { where } from "sequelize"
+import { User } from "../../models/main.mjs"
 import bcrypt from "bcrypt"
 import { issueLoginToken } from "../../functions.mjs"
+import { where } from "sequelize"
 
 const router = Router()
 
@@ -58,7 +59,7 @@ router.post("/login", async (req, res, next) => {
             createdOn: user?.createdOn,
         }
 
-        await issueLoginToken(tokenUser, req)
+        await issueLoginToken(tokenUser, res)
 
         res.send({
             message: "login successful",
@@ -159,7 +160,7 @@ router.post("/signup", async (req, res, next) => {
             createdOn: signupResponse?.createdOn,
         }
 
-        await issueLoginToken(tokenUser, req)
+        await issueLoginToken(tokenUser, res)
 
         res.send({
             message: "signup successful",

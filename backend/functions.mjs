@@ -1,9 +1,10 @@
+import "dotenv/config"
 import jwt from "jsonwebtoken"
 import { initialSessionInDays } from "./core.mjs"
 
-export const issueLoginToken = async (user, req) => {
+export const issueLoginToken = async (user, res) => {
 
-    const hart = jwt.sign(user, process.env.JWT_SECRET, {
+    const hart = jwt.sign(user, process.env.JWT_KEY, {
         expiresIn: `${initialSessionInDays}d`
     });
 

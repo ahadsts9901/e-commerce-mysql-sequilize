@@ -35,7 +35,6 @@ const userModel = (sequelize) => {
             allowNull: false,
             validate: {
                 notEmpty: true,
-                is: passwordPattern
             }
         },
         isAdmin: {
@@ -47,7 +46,7 @@ const userModel = (sequelize) => {
             defaultValue: DataTypes.NOW
         }
 
-    });
+    }, { timestamps: false });
 
     return User;
 };
