@@ -14,6 +14,7 @@ import { login, logout } from "./redux/user";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login"
 import SplashScreen from "./pages/SplashScreen";
+import SignUp from "./pages/Signup";
 
 const App = () => {
 
@@ -95,6 +96,7 @@ const App = () => {
                 <>
                   <Routes>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<SignUp />} />
                     <Route path="*" element={<Navigate to="/login" replace={true} />} />
                   </Routes>
                 </>

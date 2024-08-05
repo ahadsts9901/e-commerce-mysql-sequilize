@@ -19,14 +19,14 @@ import { useDispatch } from "react-redux"
 import { login } from "../redux/user"
 import { useNavigate } from 'react-router-dom';
 
-function Copyright(props: any) {
+export function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://ahad-web.onrender.com/" style={{
+            <Link color="inherit" href="https://github.com/ahadsts9901/" style={{
                 textDecoration: "none"
             }}>
-                We App
+                Abdul Ahad
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -34,7 +34,7 @@ function Copyright(props: any) {
     );
 }
 
-export default function SignIn() {
+export default function Login() {
 
     const [password, setPassword] = React.useState("")
     const [clientErrorMessage, setClientErrorMessage] = React.useState<null | string>(null)
@@ -63,7 +63,7 @@ export default function SignIn() {
 
             setIsLoading(true)
 
-            const response = await axios.post("/api/v1/auth/signin", {
+            const response = await axios.post("/api/v1/login", {
                 email: email,
                 password: password,
             }, { withCredentials: true })
@@ -150,13 +150,8 @@ export default function SignIn() {
                             }
                         </Button>
                         <Grid container>
-                            <Grid item xs style={{ marginRight: "16px" }}>
-                                <Link href="/auth/forgot-password" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
                             <Grid item>
-                                <Link href="/auth/signup" variant="body2">
+                                <Link href="/signup" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

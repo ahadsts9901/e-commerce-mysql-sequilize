@@ -33,7 +33,7 @@ router.post("/login", async (req, res, next) => {
     try {
 
         const user = await User.findOne({
-            where: { email: email }
+            where: { email: email.toLowerCase() }
         })
 
         if (!user) {
@@ -53,7 +53,7 @@ router.post("/login", async (req, res, next) => {
         const tokenUser = {
             firstName: user?.firstName,
             lastName: user?.lastName,
-            email: user?.email,
+            email: user?.email.toLowerCase(),
             id: user?.id,
             isAdmin: user?.isAdmin,
             createdOn: user?.createdOn,
@@ -131,7 +131,7 @@ router.post("/signup", async (req, res, next) => {
     try {
 
         const user = await User.findOne({
-            where: { email: email }
+            where: { email: email.toLowerCase() }
         })
 
         if (user) {
@@ -145,7 +145,7 @@ router.post("/signup", async (req, res, next) => {
         const signupResponse = await User.create({
             firstName: firstName,
             lastName: lastName,
-            email: email,
+            email: email.toLowerCase(),
             password: passwordHash
         })
 
@@ -154,7 +154,7 @@ router.post("/signup", async (req, res, next) => {
         const tokenUser = {
             firstName: firstName,
             lastName: lastName,
-            email: email,
+            email: email.toLowerCase(),
             id: signupResponse?.id,
             isAdmin: false,
             createdOn: signupResponse?.createdOn,
