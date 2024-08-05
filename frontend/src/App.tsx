@@ -17,6 +17,7 @@ import SplashScreen from "./pages/SplashScreen";
 import SignUp from "./pages/Signup";
 import Home from "./pages/Home";
 import AddProduct from "./pages/AddProduct";
+import Products from "./pages/Products";
 
 const App = () => {
 
@@ -47,7 +48,6 @@ const App = () => {
         const resp = await axios.get(`${baseUrl}/api/v1/profile`, {
           withCredentials: true,
         });
-        console.log(resp)
         dispatch(login(resp?.data?.data));
       } catch (error: any) {
         console.error(error);
@@ -87,6 +87,7 @@ const App = () => {
                 <>
                   <Routes>
                     <Route path="/admin/add-product" element={<AddProduct />} />
+                    <Route path="/admin/products" element={<Products />} />
                     <Route path="*" element={<Navigate to="/admin/add-product" replace={true} />} />
                   </Routes>
                 </>
