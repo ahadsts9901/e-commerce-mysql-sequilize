@@ -4,6 +4,7 @@ import morgan from "morgan"
 import jwt from "jsonwebtoken"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import { connect_db } from "./config/db.config.mjs"
 
 import authRoutes from "./routes/auth/main.mjs"
 import productRoutes from "./routes/products/main.mjs"
@@ -15,6 +16,7 @@ app.use(json())
 app.use(cookieParser())
 app.use(cors())
 app.use(morgan('dev'))
+connect_db()
 
 app.use('/api/v1', authRoutes)
 
