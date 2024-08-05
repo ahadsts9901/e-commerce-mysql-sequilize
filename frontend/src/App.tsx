@@ -45,6 +45,7 @@ const App = () => {
         const resp = await axios.get(`${baseUrl}/api/v1/profile`, {
           withCredentials: true,
         });
+        console.log(resp)
         dispatch(login(resp?.data?.data));
       } catch (error: any) {
         console.error(error);

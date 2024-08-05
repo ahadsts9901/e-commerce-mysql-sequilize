@@ -12,21 +12,27 @@ import profileRoutes from "./routes/profile/main.mjs"
 
 const app = express()
 
+app.use(
+    cors({
+        origin: 'http://localhost:5173',
+        credentials: true,
+    })
+);
+
 app.use(json())
 app.use(cookieParser())
-app.use(cors())
 app.use(morgan('dev'))
 connect_db()
 
 app.use('/api/v1', authRoutes)
 
-app.get('/api/v1/', async (req, res, next) => {
+app.use('/api/v1', async (req, res, next) => {
 
     try {
 
         const { hart } = req.cookies
 
-        const currentUser = await jwt.verify(hart, process.env.JWT_KEY)
+        const currentUser = jwt.verify(hart, process.env.JWT_KEY)
 
         req.currentUser = currentUser
 

@@ -11,10 +11,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PasswordMUI from '../MUI/components/PasswordMUI';
 import AlertMUI from "../MUI/components/AlertMUI";
-import { firstNamePattern, lastNamePattern, emailPattern, passwordPattern } from '../core';
+import { firstNamePattern, lastNamePattern, emailPattern, passwordPattern, baseUrl } from '../core';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Copyright } from './Login';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/user';
 
 export default function SignUp() {
 
@@ -25,6 +27,7 @@ export default function SignUp() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleSubmit = async (event: any) => {
 
@@ -76,46 +79,24 @@ export default function SignUp() {
         }
 
         const dataToSend = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: password
+            firstName: firstName?.trim(),
+            lastName: lastName?.trim(),
+            email: email?.trim(),
+            password: password?.trim()
         }
 
         setIsLoading(true)
 
         try {
-            const response = await axios.post(`/api/v1/signup`, dataToSend, {
+
+            const resp = await axios.post(`${baseUrl}/api/v1/signup`, dataToSend, {
                 withCredentials: true,
             });
 
-            if (response.data.message !== "error") {
-
-                try {
-
-                    await axios.post(`/api/v1/auth/email-otp`, {
-                        email: email
-                    }, { withCredentials: true })
-
-                    setIsLoading(false)
-
-                    navigate("/")
-
-                } catch (error) {
-                    console.log(error);
-                    setIsLoading(false)
-                    setClientErrorMessage("An unknown error occured")
-                    setTimeout(() => {
-                        setClientErrorMessage(null)
-                    }, 2000)
-                }
-
-            } else {
-                setClientErrorMessage("An unknown error occured")
-                setTimeout(() => {
-                    setClientErrorMessage(null)
-                }, 2000)
-            }
+            setClientErrorMessage(null)
+            setClientSuccessMessage("Signup Successfull")
+            dispatch(login(resp.data.data))
+            navigate("/")
 
             setTimeout(() => {
                 setClientSuccessMessage(null)

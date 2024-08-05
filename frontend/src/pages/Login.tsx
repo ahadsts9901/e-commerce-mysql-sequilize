@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PasswordMUI from '../MUI/components/PasswordMUI';
 import AlertMUI from '../MUI/components/AlertMUI';
-import { emailPattern, passwordPattern } from '../core';
+import { baseUrl, emailPattern, passwordPattern } from '../core';
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import { login } from "../redux/user"
@@ -63,10 +63,12 @@ export default function Login() {
 
             setIsLoading(true)
 
-            const response = await axios.post("/api/v1/login", {
-                email: email,
-                password: password,
+            const response = await axios.post(`${baseUrl}/api/v1/login`, {
+                email: email?.trim()?.toLowerCase(),
+                password: password?.trim(),
             }, { withCredentials: true })
+
+            console.log(response)
 
             setIsLoading(false)
             setClientSuccessMessage(response.data.message)

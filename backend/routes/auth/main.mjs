@@ -33,7 +33,7 @@ router.post("/login", async (req, res, next) => {
     try {
 
         const user = await User.findOne({
-            where: { email: email.toLowerCase() }
+            where: { email: email?.trim()?.toLowerCase() }
         })
 
         if (!user) {
@@ -42,7 +42,7 @@ router.post("/login", async (req, res, next) => {
             })
         }
 
-        const isPasswordTrue = await bcrypt.compare(password, user?.password)
+        const isPasswordTrue = await bcrypt.compare(password?.trim(), user?.password)
 
         if (!isPasswordTrue) {
             return res.status(400).send({
@@ -131,7 +131,7 @@ router.post("/signup", async (req, res, next) => {
     try {
 
         const user = await User.findOne({
-            where: { email: email.toLowerCase() }
+            where: { email: email?.trim()?.toLowerCase() }
         })
 
         if (user) {
@@ -143,21 +143,19 @@ router.post("/signup", async (req, res, next) => {
         const passwordHash = await bcrypt.hash(password, 12)
 
         const signupResponse = await User.create({
-            firstName: firstName,
-            lastName: lastName,
-            email: email.toLowerCase(),
+            firstName: firstName?.trim(),
+            lastName: lastName?.trim(),
+            email: email?.trim()?.toLowerCase(),
             password: passwordHash
         })
 
-        console.log("signupResponse", signupResponse)
-
         const tokenUser = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email.toLowerCase(),
-            id: signupResponse?.id,
+            firstName: firstName?.trim(),
+            lastName: lastName.trim(),
+            email: email?.trim()?.toLowerCase(),
+            id: signupResponse?.dataValues?.id,
             isAdmin: false,
-            createdOn: signupResponse?.createdOn,
+            createdOn: signupResponse?.dataValues?.createdOn,
         }
 
         await issueLoginToken(tokenUser, res)
