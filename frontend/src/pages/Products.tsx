@@ -49,7 +49,7 @@ const Products = () => {
                     <div className="buttonContAdd">
                         <Button onClick={() => navigate("/admin/add-product")}
                             variant="contained" color="primary"
-                        ><IoIosAddCircle style={{ width: "1.2em", height: "1.2em",marginTop: "-0.2em" }} />Add Product</Button>
+                        ><IoIosAddCircle style={{ width: "1.2em", height: "1.2em", marginTop: "-0.2em" }} />Add Product</Button>
                     </div>
                     : null
             }
@@ -70,6 +70,7 @@ const Products = () => {
                                             price={product?.price}
                                             image={product?.imageUrl}
                                             id={product?.id}
+                                            getProducts={getProducts}
                                         />
                                     ))
                                 }

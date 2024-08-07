@@ -8,6 +8,7 @@ import { baseUrl } from "../core";
 import axios from 'axios'
 import { logout } from "../redux/user";
 import { useDispatch, useSelector } from "react-redux";
+import Alert from "./Alert";
 
 const Header = ({ items }: any) => {
 
@@ -15,6 +16,8 @@ const Header = ({ items }: any) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [clientErrorMessage, setClientErrorMessage] = useState<null | string>(null)
+    const [alertData, setAlertdata] = useState<any>(null)
+    const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)
 
     const dispatch = useDispatch()
 
@@ -45,6 +48,14 @@ const Header = ({ items }: any) => {
             {
                 clientErrorMessage && <AlertMUI status="error" text={clientErrorMessage} />
             }
+            <Alert
+                open={isAlertOpen}
+                setOpen={setIsAlertOpen}
+                title={alertData?.title}
+                description={alertData?.description}
+                fun={alertData?.fun}
+                isLoading={isLoading}
+            />
             <div className="header">
                 <h4>MySQL Store</h4>
                 <>
@@ -57,7 +68,14 @@ const Header = ({ items }: any) => {
                             }
                         </>
                         <>
-                            <Button color="secondary" variant="outlined" disabled={isLoading} onClick={_logout}
+                            <Button color="secondary" variant="outlined" disabled={isLoading} onClick={() => {
+                                setAlertdata({
+                                    title: "Logout?",
+                                    description: "Are you sure you want to logout?. The action cannot be undone",
+                                    fun: _logout,
+                                })
+                                setIsAlertOpen(true)
+                            }}
                                 sx={{ height: "2.5em" }}
                             >Logout</Button>
                         </>
