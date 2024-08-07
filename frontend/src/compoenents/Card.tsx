@@ -19,6 +19,8 @@ import Alert from './Alert';
 import axios from 'axios';
 import { baseUrl } from '../core';
 import AlertMUI from '../MUI/components/AlertMUI';
+import FullScreenDialog from './FullScreenDialog';
+import EditForm from './EditForm';
 
 export const DropMenu = ({ productId, setAlertdata, setIsLoading, setIsAlertOpen, getProducts }: any) => {
 
@@ -34,7 +36,7 @@ export const DropMenu = ({ productId, setAlertdata, setIsLoading, setIsAlertOpen
     };
 
     const options = [
-        { label: "Edit", icon: <ModeIcon sx={{ width: "0.8em", height: "0.8em", marginRight: "0.2em" }} />, fun: (id: string | number) => editProduct(id) },
+        { label: "Edit", icon: <ModeIcon sx={{ width: "0.8em", height: "0.8em", marginRight: "0.2em" }} />, fun: () => setIsEditing(true) },
         { label: "Delete", icon: <DeleteIcon sx={{ width: "0.8em", height: "0.8em", marginRight: "0.2em" }} />, fun: (id: string | number) => deleteProduct(id) },
     ]
 
@@ -45,13 +47,9 @@ export const DropMenu = ({ productId, setAlertdata, setIsLoading, setIsAlertOpen
             fun: () => _deleteProduct(id)
         })
         setIsAlertOpen(true)
-
     }
 
-    const editProduct = (id: string | number) => {
-        console.log("edit", id)
-    }
-
+    const [isEditing, setIsEditing] = useState<boolean>(false)
     const [errorMessage, setErrorMessage] = useState<null | string>(null)
     const [successMessage, setSuccessMessage] = useState<null | string>(null)
 
@@ -90,6 +88,7 @@ export const DropMenu = ({ productId, setAlertdata, setIsLoading, setIsAlertOpen
         <>
             {errorMessage && <AlertMUI status="error" text={errorMessage} />}
             {successMessage && <AlertMUI status="success" text={successMessage} />}
+            <FullScreenDialog open={isEditing} setOpen={setIsEditing}><EditForm id={productId} setOpen={setIsEditing} getProducts={getProducts} /></FullScreenDialog>
             <div>
                 <IconButton
                     aria-label="more"

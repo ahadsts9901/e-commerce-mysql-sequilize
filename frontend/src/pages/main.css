@@ -73,6 +73,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 1em;
+    position: relative;
 }
 
 .product-single>img {
@@ -81,6 +82,16 @@
     object-fit: contain;
     background-color: #454545;
     object-position: center;
+}
+
+.product-single .drop-menu-parent {
+    position: absolute;
+    top: 0.5em;
+    left: 2.5em;
+}
+
+.product-single .drop-menu-parent svg {
+    color: #fff;
 }
 
 .product-data {

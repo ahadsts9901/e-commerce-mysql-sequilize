@@ -6,13 +6,20 @@ import { baseUrl } from "../core"
 import { Button, CircularProgress } from "@mui/material"
 import Header from "../compoenents/Header"
 import { IoIosArrowBack, IoMdCart } from "react-icons/io";
+import { useSelector } from "react-redux"
+import { DropMenu } from "../compoenents/Card"
+import Alert from "../compoenents/Alert"
 
 const SingleProduct = () => {
 
     const { productId } = useParams()
 
+    const currentUser = useSelector((state: any) => state?.user)
+
     const [product, setProduct] = useState<any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [alertData, setAlertdata] = useState<any>(null)
+    const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)
 
     useEffect(() => {
         getProduct()
@@ -47,6 +54,14 @@ const SingleProduct = () => {
                 <IoIosArrowBack style={{ color: "#454545", fontSize: "2.5em" }} />
                 <h2 style={{ paddingTop: "0.2em" }}>Go Back</h2>
             </div>
+            <Alert
+                open={isAlertOpen}
+                setOpen={setIsAlertOpen}
+                title={alertData?.title}
+                description={alertData?.description}
+                fun={alertData?.fun}
+                isLoading={isLoading}
+            />
             {
                 isLoading ?
                     <>
@@ -56,16 +71,23 @@ const SingleProduct = () => {
                         <>
                             <div className="product-single">
                                 <img src={product?.imageUrl} alt="product" />
+                                <div className='drop-menu-parent'>
+                                    <DropMenu productId={productId} setAlertdata={setAlertdata} setIsLoading={setIsLoading} setIsAlertOpen={setIsAlertOpen} getProducts={() => { }} />
+                                </div>
                                 <>
                                     <div className="product-data">
                                         <h1>{product?.title}</h1>
                                         <p>{product?.description}</p>
                                         <h4>$ {product?.price?.toLocaleString()}</h4>
-                                        <Button
-                                            color="primary"
-                                            variant="contained"
-                                            sx={{ marginTop: "auto" }}
-                                        ><IoMdCart style={{ color: "#fff", fontSize: "1.5em", marginRight: "0.5em" }} />Add To Cart</Button>
+                                        {
+                                            !currentUser?.isAdmin ?
+                                                <Button
+                                                    color="primary"
+                                                    variant="contained"
+                                                    sx={{ marginTop: "auto" }}
+                                                ><IoMdCart style={{ color: "#fff", fontSize: "1.5em", marginRight: "0.5em" }} />Add To Cart</Button>
+                                                : null
+                                        }
                                     </div>
                                 </>
                             </div>
