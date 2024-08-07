@@ -91,7 +91,7 @@ const App = () => {
                     <Route path="/admin/add-product" element={<AddProduct />} />
                     <Route path="/admin/products" element={<Products />} />
                     <Route path="/product/:productId" element={<SingleProduct />} />
-                    <Route path="*" element={<Navigate to="/admin/add-product" replace={true} />} />
+                    <Route path="*" element={<Navigate to="/admin/products" replace={true} />} />
                   </Routes>
                 </>
               )

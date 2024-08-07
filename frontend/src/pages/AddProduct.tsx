@@ -6,10 +6,14 @@ import { Button, TextField } from "@mui/material"
 import AlertMUI from "../MUI/components/AlertMUI"
 import axios from 'axios'
 import { baseUrl } from "../core"
+import { MdArrowBackIos } from "react-icons/md";
+import { useNavigate } from "react-router-dom"
 
 const AddProduct = () => {
 
     const uploadRef: any = useRef(null);
+
+    const navigate = useNavigate()
 
     const [file, setFile] = useState<any>(null)
     const [price, setPrice] = useState<number>(0)
@@ -101,6 +105,12 @@ const AddProduct = () => {
             {successMessage && <AlertMUI status="success" text={successMessage} />}
             <Header items={3} />
             <>
+                <h2 className="backToProds"
+                    onClick={() => navigate("/admin/products")}
+                ><MdArrowBackIos style={{
+                    width: "1.5em",
+                    height: "1.5em",
+                }} /> <span>Go to products</span></h2>
                 <form className="form" onSubmit={addProduct}>
                     <h3>Add Product</h3>
                     <div className="cont">

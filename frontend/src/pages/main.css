@@ -113,3 +113,24 @@
     color: #676767;
     font-size: 1.5em;
 }
+
+.backToProds {
+    margin: 2em 0 1em 1.3em;
+    cursor: pointer;
+    color: #454545;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.backToProds>span {
+    padding-top: 0.2em;
+}
+
+.buttonContAdd button {
+    margin: 2em 2em 1em auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+}

@@ -7,9 +7,11 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { IoMdCart } from "react-icons/io";
 import { MdArrowOutward } from "react-icons/md";
+import { useSelector } from 'react-redux'
 
 const _Card = ({ title, description, price, image, id }: any) => {
 
+    const currentUser = useSelector((state: any) => state?.user)
     const navigate = useNavigate()
 
     return (
@@ -38,10 +40,13 @@ const _Card = ({ title, description, price, image, id }: any) => {
                         <MdArrowOutward style={{ color: "#fff", fontSize: "1.5em", marginRight: "0.5em" }} />
                         View More
                     </Button>
-                    <Button size="small" sx={{ height: "2.5em" }} color='primary' variant='outlined'>
-                        <IoMdCart style={{ color: "#364B63", fontSize: "1.5em", marginRight: "0.5em" }} />
-                        Add To Cart
-                    </Button>
+                    {
+                        !currentUser?.isAdmin ?
+                            <Button size="small" sx={{ height: "2.5em" }} color='primary' variant='outlined'>
+                                <IoMdCart style={{ color: "#364B63", fontSize: "1.5em", marginRight: "0.5em" }} />
+                                Add To Cart
+                            </Button> : null
+                    }
                 </CardActions>
             </Card>
         </>
