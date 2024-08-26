@@ -71,9 +71,14 @@ const SingleProduct = () => {
                         <>
                             <div className="product-single">
                                 <img src={product?.imageUrl} alt="product" />
-                                <div className='drop-menu-parent'>
-                                    <DropMenu productId={productId} setAlertdata={setAlertdata} setIsLoading={setIsLoading} setIsAlertOpen={setIsAlertOpen} getProducts={() => { }} />
-                                </div>
+                                {
+                                    currentUser?.isAdmin ?
+                                        <div className='drop-menu-parent'>
+                                            <DropMenu productId={productId} setAlertdata={setAlertdata} setIsLoading={setIsLoading} setIsAlertOpen={setIsAlertOpen} getProducts={() => { }} />
+                                        </div>
+                                        :
+                                        null
+                                }
                                 <>
                                     <div className="product-data">
                                         <h1>{product?.title}</h1>
